@@ -63,28 +63,26 @@ export default class App extends Component {
         });
     }
 
+    togglePostProperty(arr, id, propName) {
+        const index = arr.findIndex(elem => elem.id === id);
+        const oldItem = arr[index];
+        const newItem = {...oldItem, [propName]: !oldItem[propName]};
+        
+        return [...arr.slice(0, index), newItem, ...arr.slice(index + 1)];
+    }
+
     onToggleImportant(id) {
         this.setState(({data}) => {
-            const index = data.findIndex(elem => elem.id === id);
-            const oldItem = data[index];
-            const newItem = {...oldItem, important: !oldItem.important};
-
-            const newArray = [...data.slice(0, index), newItem, ...data.slice(index + 1)];
             return {
-                data: newArray
+                data: this.togglePostProperty(data, id, 'important')
             }
         });
     }
 
     onToggleLiked(id) {
         this.setState(({data}) => {
-            const index = data.findIndex(elem => elem.id === id);
-            const oldItem = data[index];
-            const newItem = {...oldItem, liked: !oldItem.liked};
-
-            const newArray = [...data.slice(0, index), newItem, ...data.slice(index + 1)];
             return {
-                data: newArray
+                data: this.togglePostProperty(data, id, 'liked')
             }
         });
     }
