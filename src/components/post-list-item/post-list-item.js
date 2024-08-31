@@ -5,32 +5,9 @@ import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
 export default class PostListItem extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            important: false,
-            liked: false
-        };
-        this.onImportant = this.onImportant.bind(this);
-        this.onLiked = this.onLiked.bind(this);
-    }
-
-    onImportant() {
-        this.setState(({important}) => ({
-            important: !important
-        }));
-    }
-
-    onLiked() {
-        this.setState(({liked}) => ({
-            liked: !liked
-        }));
-    }
 
     render() {
-
-        const {label, onDelete} = this.props;
-        const {important, liked} = this.state;
+        const {label, onDelete, onToggleImportant, onToggleLiked, important, liked} = this.props;
         let classNames = "app-list-item d-flex justify-content-between";
         if (important) {
             classNames += ' important';
@@ -44,14 +21,14 @@ export default class PostListItem extends Component {
             <div className={classNames}>
                 <span
                 className="app-list-item-label"
-                onClick={this.onLiked}>
+                onClick={onToggleLiked}>
                     {label}
                 </span>
                 <div className="d-flex justify-content-center align-items-center">
                     <button
                     type="button"
                     className="btn-star btn-sm"
-                    onClick={this.onImportant}>
+                    onClick={onToggleImportant}>
                         <FontAwesomeIcon icon={faStar} />
                     </button>
                     <button
